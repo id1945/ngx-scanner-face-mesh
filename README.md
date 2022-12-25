@@ -26,7 +26,9 @@ In the Component:
 
 ```html
 <ngx-scanner-face-mesh #action="scanner" [isAuto]="true"></ngx-scanner-face-mesh>
-<span>{{ action.data | async | json }}</span>
+
+<span>{{ action.data.value | json }}</span> <!-- value -->
+<span>{{ action.data | async | json }}</span> <!-- async -->
 ```
 
 ### API Documentation
@@ -35,11 +37,11 @@ In the Component:
 
 | Field         | Description       | Type                      | Default                                                                                 |
 | ---           | ---               | ---                       | ---                                                                                     |
-| [isAuto]      | auto load         | boolean                   | true                                                                                    |
+| [isAuto]      | auto load         | boolean                   | false                                                                                   |
 | [src]         | image url         | string                    | -                                                                                       |
 | [mesh]        | options           | Options                   | -                                                                                       |
-| [config]      | config all        | BaseConfig                | -                                                                                       |
-| [style]       | style for canvas  | UnknownObject             | `{width:'100%',height:'100%'}`                                   |
+| [config]      | config all        | ScannerFaceConfig         | -                                                                                       |
+| [style]       | style for canvas  | HtmlStyles                | `{width:'100%',height:'100%',background:''#000000''}`                                   |
 | [frame]       | style for canvas  | CanvasRenderingContext2D  | `{color:'#0BF6F4',lineWidth:.5}`                                                        |
 | [medias]      | media config      | MediaStreamConstraints    | `{audio:false,video:{width:{ideal:1280},height:{ideal:720},facingMode:'environment'}}`  |
 
@@ -55,9 +57,9 @@ In the Component:
 | Field       | Description             | Type            | Default       |
 | ---         | ---                     | ---             | ---           |
 | isLoading   | status                  | boolean         | false         |
-| isStart     | status                  | boolean         | true          |
+| isStart     | status                  | boolean         | false         |
 | isPause     | status                  | boolean         | false         |
-| data        | data                    | BehaviorSubject | -             |
+| data        | data                    | BehaviorSubject | null          |
 | ---         | ---                     | ---             | ---           |
 | (start)     | start camera            | AsyncSubject    | -             |
 | (stop)      | stop camera             | AsyncSubject    | -             |
@@ -65,25 +67,40 @@ In the Component:
 
 #### Models
 
-<details><summary><b>BaseConfig</b></summary>
+<details><summary><b>ScannerFaceConfig</b></summary>
 
 ```typescript
-interface BaseConfig {
+interface ScannerFaceConfig {
   src?: string;
   isAuto?: boolean;
   isLoading?: boolean;
   mesh?: Options;
-  frame?: UnknownObject;
-  style?: UnknownObject;
-  medias?: UnknownObject | MediaStreamConstraints;
-};
+  frame?: HtmlStyles;
+  style?: HtmlStyles;
+  medias?: MediaStreamConstraints;
+}
 ```
 </details>
 
-<details><summary><b>UnknownObject</b></summary>
+<details><summary><b>ScannerFaceResult</b></summary>
 
 ```typescript
-interface UnknownObject {
+interface ScannerFaceResult {
+  canvas?: HTMLCanvasElement;
+  file?: File;
+  name?: string;
+  url?: string;
+  blob?: any;
+  base64?: string;
+  result?: Results;
+}
+```
+</details>
+
+<details><summary><b>HtmlStyles</b></summary>
+
+```typescript
+interface HtmlStyles {
   [key: string]: any;
 }
 ```
@@ -96,8 +113,8 @@ interface UnknownObject {
     <th colspan="2">Support versions</th>
   </tr>
   <tr>
-    <td>Angular 14</td>
-    <td>1.0.0</td>
+    <td>Angular 6</td>
+    <td>1.0.7</td>
   </tr>
 </table>
 
@@ -117,6 +134,6 @@ interface UnknownObject {
   </tr>
 </table>
 
-![Vietnam](https://raw.githubusercontent.com/id1945/ngx-scanner-face-mesh/master/vietnam.gif)
+![Vietnam](https://raw.githubusercontent.com/id1945/id1945/master/vietnam.gif)
 
 [MIT License](https://github.com/id1945/ngx-scanner-face-mesh/blob/master/LICENSE). Copyright (c) 2021 DaiDH
