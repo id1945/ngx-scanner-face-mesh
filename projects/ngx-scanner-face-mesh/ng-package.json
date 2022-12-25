@@ -1,0 +1,15 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/ngx-scanner-face-mesh",
+  "lib": {
+    "entryFile": "src/public_api.ts",
+    "umdModuleIds": {
+      "@mediapipe/face_mesh": "@mediapipe/face_mesh",
+      "@mediapipe/drawing_utils": "@mediapipe/drawing_utils"
+    }
+  }, 
+  "whitelistedNonPeerDependencies": [
+    "@mediapipe/face_mesh",
+    "@mediapipe/drawing_utils"
+  ]  
+}

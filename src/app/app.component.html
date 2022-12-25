@@ -1,0 +1,25 @@
+<div class="container">
+  <!-- ngx-scanner-face-mesh -->
+  <ngx-scanner-face-mesh #action="scanner" [config]="config" (event)="event($event)"></ngx-scanner-face-mesh>
+
+  <br />
+  <!-- data  -->
+  <p class="data">{{ action.data | async | json }}</p>
+
+  <!-- Loading -->
+  <p *ngIf="action.isLoading">⌛ Loading...</p>
+
+  <button class="btn btn-info" [class.btn-info]="!action.isStart" [class.btn-warning]="action.isStart" [disabled]="action.isLoading" (click)="handle(action, 'start')">Start</button>
+  <button class="btn btn-info" [class.btn-info]="!action.isStart" [class.btn-warning]="action.isStart" [disabled]="action.isLoading" (click)="handle(action, 'stop')">Stop</button>
+  <button class="btn btn-info" [class.btn-info]="!action.isStart" [class.btn-warning]="action.isStart" [disabled]="action.isLoading" (click)="action.download('ngx-scanner-face-mesh')">Cap</button>
+  <br>
+
+  <!-- For select files -->
+  <input #file type="file" (change)="onSelects(file.files)" [multiple]="'multiple'" [accept]="'.jpg, .png, .gif, .jpeg'" class="btn btn-success my-2"/>
+
+  <div *ngFor="let item of faceResult">
+    <img [src]="item.url || '' | safe: 'url'" [alt]="item.name">
+  </div>
+
+  <h5 class="mt-4">Author: DaiDH</h5>
+</div>
